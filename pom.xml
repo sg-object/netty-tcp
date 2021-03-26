@@ -10,7 +10,6 @@
 		<json-simple.version>1.1.1</json-simple.version>
 		<log4j.version>2.14.1</log4j.version>
 		<snakeyaml.version>1.28</snakeyaml.version>
-		<jackson.version>2.12.2</jackson.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -37,11 +36,6 @@
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
 			<version>${snakeyaml.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>${jackson.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
