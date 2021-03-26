@@ -1,10 +1,15 @@
 package com.sg.netty.tcp.server;
 
 import java.net.InetSocketAddress;
+import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
 import com.sg.netty.tcp.server.decoder.MessageDecoder;
 import com.sg.netty.tcp.server.handler.MessageHandler;
+import com.sg.netty.tcp.server.model.Api;
+import com.sg.netty.tcp.server.model.Api.Info;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -31,10 +36,18 @@ public class TcpServer {
 
 	public static void main(String[] args) {
 		TcpServer server = new TcpServer();
-		server.start();
+		server.start(server.readApi());
 	}
 
-	private void start() {
+	private Map<String, Info> readApi(){
+		Api api = new Yaml(new Constructor(Api.class)).load(this.getClass().getResourceAsStream("/api.yml"));
+		api.getApi().forEach((key, value) ->{
+			System.out.println(key + " : " + value.getUrl());
+		});
+		return api.getApi();
+	}
+	
+	private void start(Map<String, Info> api) {
 		final EventLoopGroup group = new NioEventLoopGroup();
 		final ServerBootstrap serverBootstrap = new ServerBootstrap();
 		final MessageHandler messageHandler = new MessageHandler();

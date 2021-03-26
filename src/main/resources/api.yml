@@ -1,0 +1,5 @@
+api:
+  api01:
+    url: /test01
+  api02:
+    url: /test02
